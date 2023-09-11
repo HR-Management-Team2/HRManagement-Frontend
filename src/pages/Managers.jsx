@@ -12,7 +12,7 @@ export default function ManagerRegister(){
         <Box sx={{ display: 'flex' }}>
             <Sidenav />
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>  
-            <h1>ManagerListSelam</h1>   
+            <h1>ManagerListSelamCNM</h1>   
             </Box>
         </Box>
     </>   
