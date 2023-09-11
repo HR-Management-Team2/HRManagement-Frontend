@@ -17,6 +17,8 @@ import Stack from "@mui/material/Stack";
 import MuiAlert from "@mui/material/Alert";
 import Slide from "@mui/material/Slide";
 import { useNavigate } from "react-router-dom";
+import React from 'react';
+import axios from 'axios';
 
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -52,6 +54,53 @@ export default function Login() {
   const vertical = "top";
   const horizontal = "right";
   const navigate = useNavigate();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+
+  const doLogin = () => {
+
+    const header = {
+      'Content-Type': 'application/json',
+      'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
+    };
+
+    const data = JSON.stringify({
+      email,
+      password
+    });
+
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/api/v1/auth/login',
+      headers: header,
+      data: data
+    }).then(result => {
+      console.log(result);
+      if (result.data.role === "ADMIN") {
+        localStorage.setItem('TOKEN', result.data.token);
+        navigate('/home');
+      } else if (result.data.role === "MANAGER") {
+        localStorage.setItem('TOKEN', result.data.token);
+        navigate('/managerhome');
+      } else if (result.data.role === "VISITOR") {
+        localStorage.setItem('TOKEN', result.data.token);
+        navigate('/visitorhome');
+      }else if (result.data.role === "EMPLOYEE") {
+        localStorage.setItem('TOKEN', result.data.token);
+        navigate('/employeehome');
+      }
+    }).catch(data => {
+      const result = data.response.data;
+      // alert(result.message);
+    })
+  }
+
+  // const doLoginSlice = ()=>{
+  //   dispatch(fetchDoLogin({email,password}));
+  // }
+
+
 
   const handleSubmit = async (event) => {
     setOpen(true);
@@ -63,7 +112,7 @@ export default function Login() {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setOpen(true);
   };
 
   function TransitionLeft(props) {
@@ -136,7 +185,7 @@ export default function Login() {
                     >
                       <Grid container spacing={1}>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={event => setEmail(event.target.value)}
                             required
                             fullWidth
                             id="email"
@@ -146,7 +195,7 @@ export default function Login() {
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={event => setPassword(event.target.value)}
                             required
                             fullWidth
                             name="password"
@@ -177,10 +226,10 @@ export default function Login() {
                           </Stack>
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "5em", mr: "5em" }}>
-                          <Button
+                          <Button onClick={doLogin}
                             type="submit"
                             variant="contained"
-                            fullWidth="true"
+                            fullWidth={true}
                             size="large"
                             sx={{
                               mt: "10px",
@@ -209,7 +258,7 @@ export default function Login() {
                                   navigate("/registermanager");
                                 }}
                               >
-                                Create a Company Account 
+                                Create a Company Account
                               </span>
                               {" or "}
                               <span
@@ -218,7 +267,7 @@ export default function Login() {
                                   navigate("/register");
                                 }}
                               >
-                                Create a Personal Account 
+                                Create a Personal Account
                               </span>
                             </Typography>
                           </Stack>
@@ -236,4 +285,4 @@ export default function Login() {
   );
 }
 
-    
+

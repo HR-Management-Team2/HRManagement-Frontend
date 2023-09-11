@@ -16,7 +16,10 @@ import Snackbar from "@mui/material/Snackbar";
 import Stack from "@mui/material/Stack";
 import MuiAlert from "@mui/material/Alert";
 import Slide from "@mui/material/Slide";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, json } from "react-router-dom";
+import { Input } from "@mui/material";
+import React from 'react';
+
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -51,6 +54,11 @@ export default function Register() {
   const vertical = "top";
   const horizontal = "right";
   const navigate = useNavigate();
+  const [name,setName] = React.useState('');
+  const [surname,setSurname] = React.useState('');
+  const [email,setEmail] = React.useState('');
+  const [password,setPassword] = React.useState('');
+  const [passwordConfirm,setPasswordConfirm] = React.useState('');
 
   const handleSubmit = async (event) => {
     setOpen(true);
@@ -68,6 +76,37 @@ export default function Register() {
   function TransitionLeft(props) {
     return <Slide {...props} direction="left" />;
   }
+
+  const getName = (event) =>{
+    setName(event.target.value);
+  }
+
+  const getSurname = (event) =>{
+    setSurname(event.target.value);
+  }
+
+  const doRegister = ()=>{
+    
+    fetch('http://localhost:8080/api/v1/auth/register',{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
+      },
+      body: JSON.stringify({
+        "name": name,
+        "surname": surname,
+        "email": email,
+        "password": password,
+        "passwordConfirm": passwordConfirm
+      })
+    }).then(data=>data.json())
+    .catch(data=>{
+      console.log(data);
+    })
+
+
+  };
 
   return (
     <>
@@ -131,7 +170,7 @@ export default function Register() {
                     >
                       <Grid container spacing={1}>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={getName}
                             required
                             fullWidth
                             id="name"
@@ -141,7 +180,7 @@ export default function Register() {
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={getSurname}
                             required
                             fullWidth
                             id="surname"
@@ -151,7 +190,7 @@ export default function Register() {
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={(event)=>setEmail(event.target.value)}
                             required
                             fullWidth
                             id="email"
@@ -161,7 +200,7 @@ export default function Register() {
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={(data)=> setPassword(data.target.value)}
                             required
                             fullWidth
                             name="password"
@@ -172,7 +211,7 @@ export default function Register() {
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                          <TextField
+                          <TextField onChange={(data)=> setPasswordConfirm(data.target.value)}
                             required
                             fullWidth
                             name="confirmpassword"
@@ -184,10 +223,10 @@ export default function Register() {
                         </Grid>
                         
                         <Grid item xs={12} sx={{ ml: "5em", mr: "5em" }}>
-                          <Button
+                          <Button onClick={doRegister}
                             type="submit"
                             variant="contained"
-                            fullWidth="true"
+                            fullWidth={true}
                             size="large"
                             sx={{
                               mt: "15px",

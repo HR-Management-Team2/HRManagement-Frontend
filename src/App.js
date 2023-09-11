@@ -18,6 +18,7 @@ import ExpenseList from "./managerPanel/pages/ExpenseList";
 import PermissionList from "./managerPanel/pages/PermissionList";
 
 export default function App(){
+
   return(
     <>
     <BrowserRouter>
