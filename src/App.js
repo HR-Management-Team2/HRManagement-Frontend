@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import MyProfile from "./pages/MyProfile";
 import CompanyRegister from './pages/CompanyRegister';
 import Managers from './pages/Managers';
-import CompanyList from './pages/CompanyList';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -28,7 +27,6 @@ export default function App(){
         <Route path="/myprofile" exact element={<MyProfile />} ></Route>
         <Route path="/companyregister" exact element={<CompanyRegister />} ></Route>
         <Route path="/managers" exact element={<Managers />} ></Route>
-        <Route path="/companylist" exact element={<CompanyList />} ></Route>
         <Route path="/login" exact element={<Login />}></Route>
         <Route path="/register" exact element={<Register />}></Route>
         <Route path="/registermanager" exact element={<RegisterManager />}></Route>

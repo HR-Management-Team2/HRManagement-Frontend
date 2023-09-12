@@ -1,0 +1,130 @@
+{
+  "user": [
+    {
+      "firstname": "sinem",
+      "lastname": "varol",
+      "gender": "female",
+      "roles": "2,1",
+      "id": 1
+    }
+  ],
+  "flow": [
+    {
+      "name": "flow4",
+      "tasks": "1,2,3,4,5",
+      "id": 1
+    },
+    {
+      "name": "flow4",
+      "tasks": "2,3",
+      "id": 2
+    }
+  ],
+  "permission": [
+    {
+      "name": "test11",
+      "id": 1
+    },
+    {
+      "name": "test2",
+      "id": 2
+    },
+    {
+      "name": "test3",
+      "id": 3
+    },
+    {
+      "name": "test5",
+      "id": 4
+    },
+    {
+      "name": "test7",
+      "id": 5
+    }
+  ],
+  "role": [
+    {
+      "name": "role1",
+      "permissions": "2,3",
+      "id": 1
+    },
+    {
+      "name": "role2",
+      "permissions": "4,3,1",
+      "id": 2
+    }
+  ],
+  "task": [
+    {
+      "name": "task1",
+      "id": 1
+    },
+    {
+      "name": "task2",
+      "id": 2
+    },
+    {
+      "name": "task3",
+      "id": 3
+    },
+    {
+      "name": "task4",
+      "id": 4
+    },
+    {
+      "name": "task555",
+      "id": 5
+    },
+    {
+      "name": "task7",
+      "id": 6
+    }
+  ],
+  "companies": [
+    {
+      "name": "asdfghjklş",
+      "taxno": "485464",
+      "phone": "01254848",
+      "address": "oekgg no:5",
+      "establish": "2020-09-11T20:28:33.150Z",
+      "id": 5
+    },
+    {
+      "name": "hdghfdg",
+      "taxno": "gfdgfd",
+      "phone": "gfdgfd",
+      "address": "gfgfd",
+      "establish": "2020-09-11T20:46:04.930Z",
+      "id": 6
+    }
+  ],
+  "managers": [
+    {
+      "name": "Damla",
+      "surname": "Erişmiş",
+      "email": "erismis.dml@gmail.com",
+      "companyname": "bilgeadam",
+      "taxno": "3520120",
+      "status": "Passive",
+      "id": 3
+    },
+    {
+      "name": "hivda",
+      "surname": "aydoğan",
+      "email": "hivdaydgn@gmail.com",
+      "companyname": "bilgeadam",
+      "taxno": "3520120",
+      "status": "Active",
+      "id": 4
+    },
+    {
+      "name": "mehmet arif",
+      "surname": "esen",
+      "email": "mehmetesen@gmail.com",
+      "companyname": "bilgeadam",
+      "taxno": "5415215231",
+      "status": "Active",
+      "id": 5
+    }
+  ]
+}
