@@ -152,7 +152,7 @@ export default function Sidenav() {
                 <ListItemText primary="Employee Register" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/employeelist")}} >
+            {/* <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/employeelist")}} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -171,7 +171,7 @@ export default function Sidenav() {
                 </ListItemIcon>
                 <ListItemText primary="Employee List" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
             <Divider sx={{ borderBottomWidth: 10 }}/>
             
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/advancelist")}} >
