@@ -11,7 +11,7 @@ import RegisterManager from "./pages/RegisterManager";
 import ManagerHome from "./managerPanel/pages/ManagerHome";
 import ManagerMyProfile from "./managerPanel/pages/ManagerMyProfile";
 import EmployeeRegister from "./managerPanel/pages/EmployeeRegister";
-import EmployeeList from "./managerPanel/pages/EmployeeList";
+// import EmployeeList from "./managerPanel/pages/EmployeeList";
 import AdvanceList from "./managerPanel/pages/AdvanceList";
 import ExpenseList from "./managerPanel/pages/ExpenseList";
 import PermissionList from "./managerPanel/pages/PermissionList";
@@ -35,7 +35,7 @@ export default function App(){
         <Route path="/managerhome" exact element={<ManagerHome />} ></Route>
         <Route path="/managermyprofile" exact element={<ManagerMyProfile />} ></Route>
         <Route path="/employeeregister" exact element={<EmployeeRegister />} ></Route>
-        <Route path="/employeelist" exact element={<EmployeeList />} ></Route>
+        {/* <Route path="/employeelist" exact element={<EmployeeList />} ></Route> */}
         <Route path="/advancelist" exact element={<AdvanceList />} ></Route>
         <Route path="/expenselist" exact element={<ExpenseList />} ></Route>
         <Route path="/permissionlist" exact element={<PermissionList />} ></Route>

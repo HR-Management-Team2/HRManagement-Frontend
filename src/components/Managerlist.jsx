@@ -9,8 +9,6 @@ import AddManagersModal from "./AddManagersModal";
 import dayjs from 'dayjs';
 
 
-
-
 const Managerlist = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [managers, setManagers] = useState([]);

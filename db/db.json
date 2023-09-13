@@ -86,7 +86,7 @@
       "taxno": "485464",
       "phone": "01254848",
       "address": "oekgg no:5",
-      "establish": "2020-09-11T20:28:33.150Z",
+      "establish": "2023-09-11T20:28:33.150Z",
       "id": 5
     },
     {
@@ -125,6 +125,24 @@
       "taxno": "5415215231",
       "status": "Active",
       "id": 5
+    }
+  ],
+  "employees": [
+    {
+      "name": "damla",
+      "surname": "aydoğan",
+      "birthdate": "2011-12-27",
+      "birthplace": "istanbul",
+      "email": "erismis@gmail.com",
+      "phone": "05061715362",
+      "address": "etlik/ keçiören",
+      "identificationnumber": "746473736373783",
+      "dateofemployment": "2023-09-13",
+      "occupation": "iOS Developer",
+      "companyname": "bilgeadam",
+      "taxno": "5451423513",
+      "salary": "150000,00",
+      "id": 1
     }
   ]
 }
