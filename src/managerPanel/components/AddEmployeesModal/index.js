@@ -72,7 +72,7 @@ const AddEmployeesModal = ({
           label="Birthdate"
           rules={[{ required: true }]}
         >
-          <input
+          <Input
             type="date"
             value={birthdate}
             onChange={handlebirthdate}
@@ -85,6 +85,7 @@ const AddEmployeesModal = ({
               borderWidth: '1px',        
               opacity: 0.7
             }}
+            format="YYYY.MM.DD"
           />
         </Form.Item>
         <Form.Item
@@ -127,7 +128,7 @@ const AddEmployeesModal = ({
           label="Date Of Employment"
           rules={[{ required: true }]}>
 
-          <input
+          <Input
             type="date"
             value={dateofemployment}
             onChange={handledateofemployment}
@@ -140,6 +141,7 @@ const AddEmployeesModal = ({
               borderWidth: '1px',        
               opacity: 0.7
             }}
+            format="YYYY.MM.DD"
           />
 
         </Form.Item>
