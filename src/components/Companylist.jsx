@@ -29,40 +29,86 @@ const Companylist = () => {
     setIsModalOpen(false);
     console.log(values);
 
+    // if (initialValues) {
+    //   axios
+    //     .put(`http://localhost:9080/api/v1/company/update/${initialValues.taxNumber}`, {
+    //       ...values
+    //     })
+    //     .then((res) => {
+    //       setCompanies((prevState) => {
+    //         return prevState.map((u) => {
+    //           if (res.data.taxNumber === u.taxNumber) {
+    //             return {
+    //               ...res.data,
+    //             };
+    //           } 
+    //           return u;
+    //         });
+    //       });
+    //     });
+    // } else {
+    //   const newCompanies = {
+    //     name: values.name,
+    //     taxNumber: values.taxNumber,
+    //     phone: values.phone,
+    //     address: values.address,
+    //     yearOfEstablishment: values.yearOfEstablishment
+    //   };
+    //   axios.post("http://localhost:9080/api/v1/company/addcompany", newCompanies).then((res) => {
+    //     setCompanies((prevState) => [
+    //       ...prevState,
+    //       {
+    //         ...res.data, 
+    //       },
+    //     ]);
+    //   });
+    // }
+
     if (initialValues) {
       axios
-        .put(`http://localhost:5000/companies/${initialValues.id}`, {
+        .put(`http://localhost:9080/api/v1/company/update/${initialValues.taxNumber}`, {
           ...values
         })
         .then((res) => {
           setCompanies((prevState) => {
             return prevState.map((u) => {
-              if (res.data.id === u.id) {
+              if (res.data.taxNumber === u.taxNumber) {
                 return {
                   ...res.data,
                 };
-              } 
+              }
               return u;
             });
           });
         });
     } else {
-      const newCompanies = {
+      const data = JSON.stringify({
         name: values.name,
-        taxno: values.taxno,
+        taxNumber: values.taxNumber,
         phone: values.phone,
         address: values.address,
-        establish: values.establish
+        email: values.email,
+        yearOfEstablishment: values.yearOfEstablishment
+      })
+
+      const header = {
+        'Content-Type': 'application/json',
+        // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
       };
-      axios.post("http://localhost:5000/companies", newCompanies).then((res) => {
-        setCompanies((prevState) => [
-          ...prevState,
-          {
-            ...res.data, 
-          },
-        ]);
-      });
+
+      axios({
+        method: 'POST',
+        url: 'http://localhost:9080/api/v1/company/addcompany',
+        headers: header,
+        data: data
+      }).then(result => {
+        console.log(result);
+      }).catch(data => {
+        const result = data.response.data;
+        alert(result.message);
+      })
     }
+
   };
 
   const onCancelAddModel = () => {
@@ -71,7 +117,7 @@ const Companylist = () => {
 
   const onClickEdit = (row) => {
     setIsModalOpen(true);
-    row.establish=dayjs(row.establish)
+    row.establish = dayjs(row.establish)
     setInitialValues(row);
   };
   const onSearch = (value) => {
@@ -83,7 +129,7 @@ const Companylist = () => {
       console.error("Invalid Company ID");
       return;
     }
-  
+
     axios
       .delete(`http://localhost:5000/companies/${companyId}`)
       .then((res) => {
@@ -103,8 +149,8 @@ const Companylist = () => {
     },
     {
       title: "Tax Number",
-      dataIndex: "taxno",
-      key: "taxno",
+      dataIndex: "taxNumber",
+      key: "taxNumber",
     },
     {
       title: "Phone",
@@ -118,30 +164,30 @@ const Companylist = () => {
     },
     {
       title: "Year of Establish",
-      dataIndex: "establish",
-      key: "establish",
+      dataIndex: "yearOfEstablishment",
+      key: "yearOfEstablishment",
     },
-    
+
     {
       dataIndex: "id",
       key: "id",
       render: (cell, row) => {
         return (
           <>
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<EditOutlined />}
-            onClick={() => onClickEdit(row)}
-          />
-          <Button
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => onClickEdit(row)}
+            />
+            <Button
               type="danger"
               shape="circle"
               icon={<DeleteOutlined />}
-              onClick={() => onDeleteCompany(row.id)} 
+              onClick={() => onDeleteCompany(row.id)}
             />
           </>
-          
+
         );
       },
       width: 100,
@@ -149,7 +195,7 @@ const Companylist = () => {
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:5000/companies").then((res) => {
+    axios.get("http://localhost:9080/api/v1/company/findall").then((res) => {
       setCompanies(res.data);
     });
   }, []);

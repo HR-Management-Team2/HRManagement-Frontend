@@ -1,5 +1,5 @@
-import { Button, Form, Input, Modal ,DatePicker } from "antd";
-import { useEffect } from "react";
+import { Button, Form, Input, Modal, DatePicker } from "antd";
+import { useEffect, useState } from "react";
 
 
 const AddCompaniesModal = ({
@@ -10,8 +10,9 @@ const AddCompaniesModal = ({
 }) => {
   const [form] = Form.useForm();
 
+
   const onFinish = (values) => {
-    //    console.log(values);
+    console.log(values);
     onOk(values);
     form.resetFields();
   };
@@ -22,10 +23,11 @@ const AddCompaniesModal = ({
     }
   }, [form]);
 
-  const config = {
-    rules: [{ type: 'object' , required: true, message: 'Please select time!' }],
+  const [inputValue, setInputValue] = useState('');
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
   };
-  
+
 
   return (
     <Modal
@@ -50,12 +52,12 @@ const AddCompaniesModal = ({
           <Input />
         </Form.Item>
         <Form.Item
-          name="taxno"
+          name="taxNumber"
           label="Tax Number"
           rules={[{ required: true }]}
         >
           <Input />
-          
+
         </Form.Item>
         <Form.Item
           name="phone"
@@ -71,12 +73,28 @@ const AddCompaniesModal = ({
         >
           <Input />
         </Form.Item >
-        <Form.Item name="establish" label="Establish"  {...config} rules={[{ required: true }]}>
-        
-          <DatePicker picker="year" />
-        
+        <Form.Item
+          name="yearOfEstablishment"
+          label="Establish"
+          rules={[{ required: true }]}
+        >
+          <Input 
+            type="date"
+            value={inputValue}
+            onChange={handleChange}
+            style={{
+              borderRadius: '5px',
+              width: '315px',
+              height: '35px',
+              border: '1px solid #ccc',
+              borderColor: '#ccc',
+              borderWidth: '1px',
+              opacity: 0.7
+            }}
+            format="YYYY.MM.DD"
+          />
         </Form.Item>
-        
+
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
