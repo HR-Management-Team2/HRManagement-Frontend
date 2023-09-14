@@ -15,6 +15,7 @@ import EmployeeRegister from "./managerPanel/pages/EmployeeRegister";
 import AdvanceList from "./managerPanel/pages/AdvanceList";
 import ExpenseList from "./managerPanel/pages/ExpenseList";
 import PermissionList from "./managerPanel/pages/PermissionList";
+import ManagersEmployeePage from "./managerPanel/pages/ManagersEmployeePage";
 
 export default function App(){
 
@@ -39,6 +40,7 @@ export default function App(){
         <Route path="/advancelist" exact element={<AdvanceList />} ></Route>
         <Route path="/expenselist" exact element={<ExpenseList />} ></Route>
         <Route path="/permissionlist" exact element={<PermissionList />} ></Route>
+        <Route path="/managersemployeepage" exact element={<ManagersEmployeePage />} ></Route>
       </Routes>
     </BrowserRouter>
     </>

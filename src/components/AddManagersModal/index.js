@@ -23,11 +23,11 @@ const AddManagersModal = ({
     if (form) {
       form.setFieldsValue(initialValues);
     }
-  }, [form]);
+  }, [form, initialValues]);
 
-  const config = {
-    rules: [{ type: 'object', required: true, message: 'Please select time!' }],
-  };
+  // const config = {
+  //   rules: [{ type: 'object', required: true, message: 'Please select time!' }],
+  // };
 
   // MODALLAR AÇILAN FORMU DEĞİŞTİTİRYOR!!!!!!!!!!!
   const { Option } = Select;
