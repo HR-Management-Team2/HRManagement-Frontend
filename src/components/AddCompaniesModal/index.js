@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, DatePicker } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
 
 
@@ -21,7 +21,7 @@ const AddCompaniesModal = ({
     if (form) {
       form.setFieldsValue(initialValues);
     }
-  }, [form]);
+  }, [form, initialValues]);
 
   const [inputValue, setInputValue] = useState('');
   const handleChange = (event) => {

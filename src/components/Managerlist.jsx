@@ -4,7 +4,6 @@ import PageLayoutManager from "./PageLayoutManager";
 import { Button, Table } from "antd";
 import axios from "axios";
 import { EditOutlined, DeleteOutlined  } from "@ant-design/icons";
-import { Select } from "antd"; 
 import AddManagersModal from "./AddManagersModal";
 import dayjs from 'dayjs';
 
@@ -83,7 +82,7 @@ const Managerlist = () => {
 
 
 
-  const { Option } = Select; 
+  // const { Option } = Select; 
 
   const onStatusChange = (managerId, status) => {
     if (!managerId || !status) {
