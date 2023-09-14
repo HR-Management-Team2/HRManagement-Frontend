@@ -124,23 +124,30 @@ const Companylist = () => {
     setSearch(value);
   };
 
-  const onDeleteCompany = (companyId) => {
-    if (!companyId) {
-      console.error("Invalid Company ID");
+  const onDeleteCompany = (taxNumber) => {
+    if (!taxNumber) {
+      console.error("Invalid Company Tax Number");
       return;
     }
 
     axios
-      .delete(`http://localhost:5000/companies/${companyId}`)
+      .delete(`http://localhost:9080/api/v1/company/delete/${taxNumber}`)
       .then((res) => {
-        setCompanies((prevState) =>
-          prevState.filter((company) => company.id !== companyId)
-        );
+        if (res.status === 200) {
+          console.log("Company deleted successfully.");
+          setCompanies((prevState) =>
+            prevState.filter((company) => company.taxNumber !== taxNumber)
+          );
+        } else {
+          console.error("Delete error:", res.data);
+        }
       })
       .catch((error) => {
         console.error("Delete error:", error);
       });
   };
+
+
   const columns = [
     {
       title: "Company Name",
@@ -169,8 +176,8 @@ const Companylist = () => {
     },
 
     {
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "taxNumber",
+      key: "taxNumber",
       render: (cell, row) => {
         return (
           <>
@@ -184,7 +191,7 @@ const Companylist = () => {
               type="danger"
               shape="circle"
               icon={<DeleteOutlined />}
-              onClick={() => onDeleteCompany(row.id)}
+              onClick={() => onDeleteCompany(row.taxNumber)}
             />
           </>
 
