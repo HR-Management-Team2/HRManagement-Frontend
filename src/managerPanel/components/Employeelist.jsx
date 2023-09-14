@@ -12,6 +12,7 @@ const Employeelist = () => {
   const [initialValues, setInitialValues] = useState([]);
   const [search, setSearch] = useState("");
 
+  const token=localStorage.getItem('TOKEN');
 
   const buttons = [
     {
@@ -31,13 +32,13 @@ const Employeelist = () => {
 
     if (initialValues) {
       axios
-        .put(`http://localhost:5000/employees/${initialValues.id}`, {
+        .put(`http://localhost:8090/api/v1/user/update-employee/${initialValues.email}`, {
           ...values,
         })
         .then((res) => {
           setEmployees((prevState) => {
             return prevState.map((u) => {
-              if (res.data.id === u.id) {
+              if (res.data.email === u.email) {
                 return {
                   ...res.data,
                 };
@@ -47,31 +48,47 @@ const Employeelist = () => {
           });
         });
     } else {
-      const newEmployees = {
+      const newEmployees = JSON.stringify({
         name: values.name,
         surname: values.surname,
-        birthdate: values.birthdate,
-        birthplace: values.birthplace,
+        birthday: values.birthday,
+        birthdayPlace: values.birthdayPlace,
         email: values.email,
         phone: values.phone,
         address: values.address,
-        identificationnumber: values.identificationnumber,
-        dateofemployment: values.dateofemployment,
+        idNumber: values.idNumber,
+        //dateofemployment: values.dateofemployment,
         occupation: values.occupation,
-        companyname: values.companyname,
-        taxno: values.taxno,
-        salary: values.salary
+        // companyname: values.companyname,
+        // taxno: values.taxno,
+        salary: values.salary,
+        token: token
+      });
+      // axios
+      //   .post("http://localhost:8090/api/v1/user/addemployee", newEmployees)
+      //   .then((res) => {
+      //     setEmployees((prevState) => [
+      //       ...prevState,
+      //       {
+      //         ...res.data,
+      //       },
+      //     ]);
+      //   });
+      const header = {
+        'Content-Type': 'application/json',
+        // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
       };
-      axios
-        .post("http://localhost:5000/employees", newEmployees)
-        .then((res) => {
-          setEmployees((prevState) => [
-            ...prevState,
-            {
-              ...res.data,
-            },
-          ]);
-        });
+      axios({
+        method: 'POST',
+        url: 'http://localhost:8090/api/v1/user/addemployee',
+        headers: header,
+        data: newEmployees
+      }).then(result => {
+        console.log(result);
+      }).catch(data => {
+        const result = data.response.data;
+        alert(result.message);
+      })
     }
   };
 
@@ -133,9 +150,9 @@ const Employeelist = () => {
       key: "occupation",
     },
     {
-      title: "Company Name",
-      dataIndex: "companyname",
-      key: "companyname",
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
     },
     {
       dataIndex: "id",
@@ -163,7 +180,7 @@ const Employeelist = () => {
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:5000/employees").then((res) => {
+    axios.get(`http://localhost:8090/api/v1/user/findall-employee?token=${token}`).then((res) => {
       setEmployees(res.data);
     });
   }, []);

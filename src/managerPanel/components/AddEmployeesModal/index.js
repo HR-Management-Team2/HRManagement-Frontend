@@ -24,12 +24,12 @@ const AddEmployeesModal = ({
     }
   }, [form, initialValues]);
 
-  const [dateofemployment, setdateofemployment] = useState('');
-  const [birthdate, setbirthdate] = useState('');
+  // const [dateofemployment, setdateofemployment] = useState('');
+  const [birthday, setbirthdate] = useState('');
 
-  const handledateofemployment = (e) => {
-    setdateofemployment(e.target.value);
-  };
+  // const handledateofemployment = (e) => {
+  //   setdateofemployment(e.target.value);
+  // };
 
   const handlebirthdate = (e) => {
     setbirthdate(e.target.value);
@@ -68,13 +68,13 @@ const AddEmployeesModal = ({
 
         </Form.Item>
         <Form.Item
-          name="birthdate"
+          name="birthday"
           label="Birthdate"
           rules={[{ required: true }]}
         >
           <Input
             type="date"
-            value={birthdate}
+            value={birthday}
             onChange={handlebirthdate}
             style={{
               borderRadius: '5px',
@@ -89,7 +89,7 @@ const AddEmployeesModal = ({
           />
         </Form.Item>
         <Form.Item
-          name="birthplace"
+          name="birthdayPlace"
           label="Birth Place"
           rules={[{ required: true }]}
         >
@@ -117,13 +117,13 @@ const AddEmployeesModal = ({
           <Input />
         </Form.Item >
         <Form.Item
-          name="identificationnumber"
+          name="idNumber"
           label="Identification Number"
           rules={[{ required: true }]}
         >
           <Input />
         </Form.Item >
-        <Form.Item
+        {/* <Form.Item
           name="dateofemployment"
           label="Date Of Employment"
           rules={[{ required: true }]}>
@@ -144,7 +144,7 @@ const AddEmployeesModal = ({
             format="YYYY.MM.DD"
           />
 
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="occupation"
           label="Occupation"
@@ -152,7 +152,7 @@ const AddEmployeesModal = ({
 
           <Input />
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="companyname"
           label="Company Name"
           rules={[{ required: true }]}>
@@ -165,7 +165,7 @@ const AddEmployeesModal = ({
           rules={[{ required: true }]}>
 
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="salary"
           label="Salary"

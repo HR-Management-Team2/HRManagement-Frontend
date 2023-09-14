@@ -62,7 +62,7 @@ export default function Login() {
 
     const header = {
       'Content-Type': 'application/json',
-      'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
+      // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
     };
 
     const data = JSON.stringify({
