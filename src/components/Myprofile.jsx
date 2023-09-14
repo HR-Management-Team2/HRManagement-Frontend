@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidenav from "../components/Sidenav";
 import Box from "@mui/material/Box";
 import Navbar from "../components/Navbar";
@@ -8,13 +8,24 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+
 
 export default function Myprofile() {
   const [isEditing, setIsEditing] = useState(false);
+  const [admin, setAdmin] = useState([]);
+
+  const token = localStorage.getItem("TOKEN");
+  const decodedToken = jwt_decode(token);
+  const authId = decodedToken.authId;
+
+
+
   const [userData, setUserData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@example.com",
+    firstName: "",
+    lastName: "",
+    email: "",
   });
 
   const handleEditClick = () => {
@@ -32,6 +43,39 @@ export default function Myprofile() {
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    axios.get(`http://localhost:8090/api/v1/user/find-by-user-dto/${authId}`,token,{
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+    })
+    .then((response) => {
+      const { firstName, lastName, email } = response.data;
+      setUserData({ firstName, lastName, email });
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }, [authId, token]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8090/api/v1/user/find-by-user-dto${authId}`, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const { firstName, lastName, email } = response.data;
+  //       setUserData({ firstName, lastName, email });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [authId, token]);
+
 
   const VisuallyHiddenInput = styled("input")`
     clip: rect(0 0 0 0);
@@ -51,13 +95,13 @@ export default function Myprofile() {
       <Box height={10} />
       <Box sx={{ display: "flex" }}>
         <Sidenav />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, maxWidth: "600px"}}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, maxWidth: "600px" }}>
           <h1>My Profile</h1>
           {/* bunun yerine admin isim soyismi çekilse güzel olur */}
           <Avatar
             alt="Remy Sharp"
             src="\pages\bg\login.png"
-            sx={{ width: 150, height: 150, marginBottom:"20px" }}
+            sx={{ width: 150, height: 150, marginBottom: "20px" }}
           />
           <Button
             component="label"
