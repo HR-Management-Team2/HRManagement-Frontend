@@ -13,18 +13,83 @@ import jwt_decode from "jwt-decode";
 
 
 export default function Myprofile() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [admin, setAdmin] = useState([]);
+  // const [isEditing, setIsEditing] = useState(false);
+  // const [admin, setAdmin] = useState([]);
+
+  // const token = localStorage.getItem("TOKEN");
+  // const decodedToken = jwt_decode(token);
+  // const authId = decodedToken.authId;
+
+
+
+  // const [userData, setUserData] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  // });
+
+  // const handleEditClick = () => {
+  //   setIsEditing(!isEditing);
+  // };
+
+  // const handleSaveClick = () => {
+  //   setIsEditing(false);
+  // };
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setUserData({
+  //     ...userData,
+  //     [name]: value,
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   axios.get(`http://localhost:8090/api/v1/user/find-by-user-dto/${authId}`,token,{
+  //       headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${token}`,
+  //       }
+  //   })
+  //   .then((response) => {
+  //     const { firstName, lastName, email } = response.data;
+  //     setUserData({ firstName, lastName, email });
+  //   }).catch((error)=>{
+  //     console.log(error);
+  //   });
+  // }, [authId, token]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8090/api/v1/user/find-by-user-dto${authId}`, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const { firstName, lastName, email } = response.data;
+  //       setUserData({ firstName, lastName, email });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [authId, token]);
 
   const token = localStorage.getItem("TOKEN");
-  const decodedToken = jwt_decode(token);
-  const authId = decodedToken.authId;
+  let id;
 
+  try {
+    const decodedToken = jwt_decode(token);
+    id = decodedToken.id;
+  } catch (error) {
+    console.error("Token çözme hatası:", error);
+  }
 
-
+  const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
+    surname: "",
     email: "",
   });
 
@@ -45,36 +110,29 @@ export default function Myprofile() {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:8090/api/v1/user/find-by-user-dto/${authId}`,token,{
-        headers: {
+    if (id) {
+      axios
+        .get(`http://localhost:8090/api/v1/user/find-by-user-dto/${id}`, {
+          headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
-        }
-    })
-    .then((response) => {
-      const { firstName, lastName, email } = response.data;
-      setUserData({ firstName, lastName, email });
-    }).catch((error)=>{
-      console.log(error);
-    });
-  }, [authId, token]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8090/api/v1/user/find-by-user-dto${authId}`, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const { firstName, lastName, email } = response.data;
-  //       setUserData({ firstName, lastName, email });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [authId, token]);
+            'Cache-Control': 'no-cache',
+          },
+          params: {
+            timestamp: new Date().getTime(),
+          },
+        })
+        .then((response) => {
+          const { name, surname, email } = response.data;
+          console.log('API Yanıtı:', response.data);
+          setUserData({ name, surname, email });
+          console.log('Kullanıcı Verisi:', userData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [id,token]);
 
 
   const VisuallyHiddenInput = styled("input")`
@@ -115,17 +173,17 @@ export default function Myprofile() {
           {isEditing ? (
             <Box sx={{ marginTop: "50px" }}>
               <TextField
-                name="firstName"
+                name="name"
                 label="First Name"
-                value={userData.firstName}
+                value={userData.name}
                 onChange={handleChange}
                 fullWidth
                 sx={{ mb: 2 }}
               />
               <TextField
-                name="lastName"
+                name="surname"
                 label="Last Name"
-                value={userData.lastName}
+                value={userData.surname}
                 onChange={handleChange}
                 fullWidth
                 sx={{ mb: 2 }}
@@ -145,8 +203,8 @@ export default function Myprofile() {
               elevation={3}
               sx={{ padding: 2, mb: 2, maxWidth: "600px", marginTop: "30px" }}
             >
-              <p>First Name: {userData.firstName}</p>
-              <p>Last Name: {userData.lastName}</p>
+              <p>First Name: {userData.name}</p>
+              <p>Last Name: {userData.surname}</p>
               <p>Email: {userData.email}</p>
             </Paper>
           )}
