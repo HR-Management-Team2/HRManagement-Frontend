@@ -202,7 +202,7 @@ const Companylist = () => {
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:9080/api/v1/company/findall").then((res) => {
+    axios.get("http://localhost/company/findall").then((res) => {
       setCompanies(res.data);
     });
   }, []);
