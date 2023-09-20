@@ -13,69 +13,6 @@ import jwt_decode from "jwt-decode";
 
 
 export default function Myprofile() {
-  // const [isEditing, setIsEditing] = useState(false);
-  // const [admin, setAdmin] = useState([]);
-
-  // const token = localStorage.getItem("TOKEN");
-  // const decodedToken = jwt_decode(token);
-  // const authId = decodedToken.authId;
-
-
-
-  // const [userData, setUserData] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  // });
-
-  // const handleEditClick = () => {
-  //   setIsEditing(!isEditing);
-  // };
-
-  // const handleSaveClick = () => {
-  //   setIsEditing(false);
-  // };
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setUserData({
-  //     ...userData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8090/api/v1/user/find-by-user-dto/${authId}`,token,{
-  //       headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${token}`,
-  //       }
-  //   })
-  //   .then((response) => {
-  //     const { firstName, lastName, email } = response.data;
-  //     setUserData({ firstName, lastName, email });
-  //   }).catch((error)=>{
-  //     console.log(error);
-  //   });
-  // }, [authId, token]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8090/api/v1/user/find-by-user-dto${authId}`, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const { firstName, lastName, email } = response.data;
-  //       setUserData({ firstName, lastName, email });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [authId, token]);
-
   const token = localStorage.getItem("TOKEN");
   let id;
 
@@ -91,6 +28,7 @@ export default function Myprofile() {
     name: "",
     surname: "",
     email: "",
+    image: "",
   });
 
   const handleEditClick = () => {
@@ -132,7 +70,75 @@ export default function Myprofile() {
           console.log(error);
         });
     }
-  }, [id,token]);
+  }, [id, token]);
+
+
+  // const [selectedFile, setSelectedFile] = useState(null);
+  // const [profileImage, setProfileImage] = useState(
+  //   selectedFile ? URL.createObjectURL(selectedFile) : "/pages/bg/login.png"
+  // );
+
+  // const handleFileChange = (event) => {
+  //   setSelectedFile(event.target.files[0]);
+  //   if (event.target.files[0]) {
+  //     setProfileImage(URL.createObjectURL(event.target.files[0]));
+  //   }
+  // };
+
+  // const handleImageUpload = () => {
+  //   if (selectedFile) {
+  //     const formData = new FormData();
+  //     formData.append("file", selectedFile);
+
+  //     axios
+  //       .post("http://localhost:8090/api/v1/user/image-upload", formData, {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //           Authorization: `Bearer ${token}`,
+  //           "Cache-Control": "no-cache",
+  //         },
+  //       })
+  //       .then((response) => {
+  //         console.log("Profil fotoğrafı yüklendi");
+  //       })
+  //       .catch((error) => {
+  //         console.error("Profil fotoğrafı yüklenirken hata oluştu:", error);
+  //       });
+  //   }
+  // };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      uploadProfileImage(file);
+    }
+  };
+
+  const uploadProfileImage = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    axios
+      .post("http://localhost:8090/api/v1/user/image-upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+          "Cache-Control": "no-cache",
+        },
+      })
+      .then((response) => {
+        console.log("Profil fotoğrafı yüklendi");
+        setUserData({
+          ...userData,
+          image: response.data.imageUrl,
+        });
+      })
+      .catch((error) => {
+        console.error("Profil fotoğrafı yüklenirken hata oluştu:", error);
+      });
+  };
+
+
 
 
   const VisuallyHiddenInput = styled("input")`
@@ -157,19 +163,25 @@ export default function Myprofile() {
           <h1>My Profile</h1>
           {/* bunun yerine admin isim soyismi çekilse güzel olur */}
           <Avatar
-            alt="Remy Sharp"
-            src="\pages\bg\login.png"
-            sx={{ width: 150, height: 150, marginBottom: "20px" }}
+            alt="User Profile"
+            src={userData.image || "/assets/default-image.jpg"} 
+            style={{ width: 150, height: 150, marginBottom: "20px" }}
           />
+
           <Button
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
-            href="#file-upload"
+            htmlFor="file-upload-input"
           >
             Upload a file
-            <VisuallyHiddenInput type="file" />
+            <VisuallyHiddenInput
+              id="file-upload-input"
+              type="file"
+              onChange={handleFileChange}
+            />
           </Button>
+
           {isEditing ? (
             <Box sx={{ marginTop: "50px" }}>
               <TextField
