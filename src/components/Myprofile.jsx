@@ -61,9 +61,9 @@ export default function Myprofile() {
           },
         })
         .then((response) => {
-          const { name, surname, email } = response.data;
+          const { name, surname, email, image } = response.data;
           console.log('API Yanıtı:', response.data);
-          setUserData({ name, surname, email });
+          setUserData({ name, surname, email, image });
           console.log('Kullanıcı Verisi:', userData);
         })
         .catch((error) => {
@@ -130,7 +130,7 @@ export default function Myprofile() {
         console.log("Profil fotoğrafı yüklendi");
         setUserData({
           ...userData,
-          image: response.data.imageUrl,
+          image: response.data.image,
         });
       })
       .catch((error) => {
