@@ -32,7 +32,7 @@ const AddAdvancesModal = ({
 
   return (
     <Modal
-      title="Add Advance"
+      title="Advance Status"
       open={isModalOpen}
       onCancel={onCancel}
       cancelButtonProps={{ style: { display: "none" } }}
@@ -46,45 +46,21 @@ const AddAdvancesModal = ({
         labelCol={{ span: 8 }}
       >
         <Form.Item
-          name="advanceRequestType"
-          label="Advance Type"
+          name="id"
+          label="ID"
+          rules={[{ required: true }]}
+        >
+          <Input/>
+        </Form.Item>
+        <Form.Item
+          name="approvalStatus"
+          label="ApprovalStatus"
           rules={[{ required: true }]}
         >
           <Select>
-            <Select.Option value="SALARY">Salary</Select.Option>
-            <Select.Option value="WORK_SUPPLIES">Work Supplies</Select.Option>
-            <Select.Option value="EDUCATION">Education</Select.Option>
-            <Select.Option value="HEALTH">Health</Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label="Description"
-          rules={[{ required: true }]}
-        >
-          <TextArea rows={4} />
-        </Form.Item>
-        <Form.Item
-          name="advanceAmount"
-          label="Amount"
-          rules={[{ required: true }]}
-
-        >
-          <InputNumber
-            min={0}
-            step={50}
-          />
-        </Form.Item>
-        <Form.Item
-          name="currency"
-          label="Currency"
-          rules={[{ required: true }]}
-        >
-          <Select>
-            <Select.Option value="USD">USD</Select.Option>
-            <Select.Option value="EUR">EURO</Select.Option>
-            <Select.Option value="GBP">GBP</Select.Option>
-            <Select.Option value="TRY">TL</Select.Option>
+            <Select.Option value="APPROVED">APPROVED</Select.Option>
+            <Select.Option value="PENDING_APPROVAL">PENDING APPROVAL</Select.Option>
+            <Select.Option value="REJECTED">REJECTED</Select.Option>
           </Select>
         </Form.Item >
         {/* <Form.Item
