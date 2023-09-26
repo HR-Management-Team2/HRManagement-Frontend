@@ -46,20 +46,20 @@ const AddPermissionsModal = ({
         labelCol={{ span: 8 }}
       >
         <Form.Item
-          name="permissionType"
+          name="epermissionType"
           label="Permission Type"
           rules={[{ required: true }]}
         >
           <Select>
-            <Select.Option value="Holiday">Holiday</Select.Option>
-            <Select.Option value="Annual Leave">Annual Leave</Select.Option>
-            <Select.Option value="Sick Leave">Sick Leave</Select.Option>
-            <Select.Option value="Maternity/Paternity Leave">Maternity/Paternity Leave</Select.Option>
-            <Select.Option value="Educational Leave">Educational Leave</Select.Option>
-            <Select.Option value="Home Renovation Leave">Home Renovation Leave</Select.Option>
-            <Select.Option value="Child's School Leave">Child's School Leave</Select.Option>
-            <Select.Option value="Special Leave">Special Leave</Select.Option>
-            <Select.Option value="Religious Holiday Leave">Religious Holiday Leave</Select.Option>
+            <Select.Option value="HOLIDAY">Holiday</Select.Option>
+            <Select.Option value="ANNUAL">Annual Leave</Select.Option>
+            <Select.Option value="SICK">Sick Leave</Select.Option>
+            <Select.Option value="MATERNITY_PATERNITY">Maternity/Paternity Leave</Select.Option>
+            <Select.Option value="EDUCATIONAL">Educational Leave</Select.Option>
+            <Select.Option value="HOME_RENOVATION">Home Renovation Leave</Select.Option>
+            <Select.Option value="CHILDS_SCHOOL">Child's School Leave</Select.Option>
+            <Select.Option value="SPECIAL">Special Leave</Select.Option>
+            <Select.Option value="RELIGIOUS_HOLIDAY">Religious Holiday Leave</Select.Option>
           </Select>
         </Form.Item>
 

@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import PageLayoutEmployee from "../components/PageLayoutEmployee";
+import PageLayoutManager from "../components/PageLayoutManager";
 import { Button, Table } from "antd";
 import axios from "axios";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import AddPermissionsModal from "../components/AddPermissionsModal";
+import AddPermissionsModal from "./AddPermissionsModalManager"
 import dayjs from "dayjs";
 
 
 
-const Permissionlist = () => {
+const Permissionlistmanager = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [permissions, setPermissions] = useState([]);
   const [initialValues, setInitialValues] = useState([]);
   const [search, setSearch] = useState("");
 
-  const token = localStorage.getItem('TOKEN');
+  const token=localStorage.getItem('TOKEN');
 
   const buttons = [
     {
@@ -34,55 +34,51 @@ const Permissionlist = () => {
 
     const days = calculatePermissionDays(values.startDate, values.endDate);
     function calculatePermissionDays(startDate, endDate) {
-      const start = dayjs(startDate);
-      const end = dayjs(endDate);
-      const dayDifference = end.diff(start, "day");
-      return dayDifference + 1;
-    }
+        const start = dayjs(startDate);
+        const end = dayjs(endDate);
+        const dayDifference = end.diff(start, "day");
+        return dayDifference + 1;
+      }
 
-    // if (initialValues) {
-    //   axios
-    //     .put(`http://localhost:5000/permissions/${initialValues.id}`, {
-    //       ...values,
-    //     })
-    //     .then((res) => {
-    //       setPermissions((prevState) => {
-    //         return prevState.map((u) => {
-    //           if (res.data.id === u.id) {
-    //             return {
-    //               ...res.data,
-    //             };
-    //           }
-    //           return u;
-    //         });
-    //       });
-    //     });
-    // } else {
-    const newPermissions = JSON.stringify({
-      epermissionType: values.epermissionType,
-      startDate: values.startDate,
-      endDate: values.endDate,
-      days: days,
-      replyDate: values.replyDate,
-      approvalStatus:values.approvalStatus,
-      token: token
-    });
-    const header = {
-      'Content-Type': 'application/json',
-      // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
-    };
-    axios({
-      method: 'POST',
-      url: 'http://localhost:8090/api/v1/user/permission-create',
-      headers: header,
-      data: newPermissions
-    }).then(result => {
-      console.log(result);
-    }).catch(data => {
-      const result = data.response.data;
-      alert(result.message);
-    })
-    //}
+    if (initialValues) {
+      axios
+        .put(`http://localhost:8090/api/v1/user/approve-permission${initialValues.id}`, {
+          ...values,
+        })
+        .then((res) => {
+          setPermissions((prevState) => {
+            return prevState.map((u) => {
+              if (res.data.id === u.id) {
+                return {
+                  ...res.data,
+                };
+              }
+              return u;
+            });
+          });
+        });
+    } else {
+      const newPermissions = {
+        ePermissionType: values.ePermissionType,
+        dateOfRequest: values.dateOfRequest,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        days: days,
+        approvalStatus:values.approvalStatus,
+        token: token
+      };
+
+      axios
+        .post("http://localhost:5000/permissions", newPermissions)
+        .then((res) => {
+          setPermissions((prevState) => [
+            ...prevState,
+            {
+              ...res.data,
+            },
+          ]);
+        });
+    }
   };
 
   const onCancelAddModel = () => {
@@ -144,9 +140,24 @@ const Permissionlist = () => {
 
   const columns = [
     {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Employee Name",
+      dataIndex: "nameEmployee",
+      key: "nameEmployee",
+    },
+    {
+      title: "Employee Surname",
+      dataIndex: "surnameEmployee",
+      key: "surnameEmployee",
+    },
+    {
       title: "Permission Type",
-      dataIndex: "epermissionType",
-      key: "epermissionType",
+      dataIndex: "ePermissionType",
+      key: "ePermissionType",
     },
     {
       title: "Date of Request",
@@ -169,54 +180,49 @@ const Permissionlist = () => {
       key: "days",
     },
     {
-      title: "Reply Date",
-      dataIndex: "replyDate",
-      key: "replyDate",
-    },
-    {
       title: "Status",
       dataIndex: "approvalStatus",
       key: "approvalStatus",
     },
-    // {
-    //   dataIndex: "id",
-    //   key: "id",
-    //   render: (cell, row) => {
-    //     return (
-    //       <>
-    //         <Button
-    //           type="primary"
-    //           shape="circle"
-    //           icon={<EditOutlined />}
-    //           onClick={() => onClickEdit(row)}
-    //         />
-    //         <Button
-    //           type="danger"
-    //           shape="circle"
-    //           icon={<DeleteOutlined />}
-    //           onClick={() => onDeletePermission(row.id)}
-    //         />
-    //       </>
-    //     );
-    //   },
-    //   width: 100,
-    // },
+    {
+      dataIndex: "id",
+      key: "id",
+      render: (cell, row) => {
+        return (
+          <>
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => onClickEdit(row)}
+            />
+            {/* <Button
+              type="danger"
+              shape="circle"
+              icon={<DeleteOutlined />}
+              onClick={() => onDeletePermission(row.id)}
+            /> */}
+          </>
+        );
+      },
+      width: 100,
+    },
   ];
 
   useEffect(() => {
-    axios.get(`http://localhost:8090/api/v1/user/findall-permission-employee?token=${token}`).then((res) => {
+    axios.get(`http://localhost:8090/api/v1/user/findall-permission-manager?token=${token}`).then((res) => {
       setPermissions(res.data);
     });
   }, []);
 
   return (
-    <PageLayoutEmployee buttons={buttons} onSearch={onSearch}>
+    <PageLayoutManager buttons={buttons} onSearch={onSearch}>
       <Table
         dataSource={permissions.filter((permission) => {
-          if (!permission || !permission.description) {
-            return false; 
-          }
-          return permission.description.includes(search);
+          return (
+            (permission && permission.ePermissionType) ||
+            permission.description.includes(search)
+          );
         })}
         columns={columns}
         rowKey="id"
@@ -232,8 +238,8 @@ const Permissionlist = () => {
           onStatusChange={onStatusChange}
         />
       )}
-    </PageLayoutEmployee>
+    </PageLayoutManager>
   );
 };
 
-export default Permissionlist;
+export default Permissionlistmanager;
