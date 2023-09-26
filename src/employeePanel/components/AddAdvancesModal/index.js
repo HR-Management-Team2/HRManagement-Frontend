@@ -46,15 +46,15 @@ const AddAdvancesModal = ({
         labelCol={{ span: 8 }}
       >
         <Form.Item
-          name="advanceType"
+          name="advanceRequestType"
           label="Advance Type"
           rules={[{ required: true }]}
         >
           <Select>
-            <Select.Option value="Salary">Salary</Select.Option>
-            <Select.Option value="WorkSupplies">Work Supplies</Select.Option>
-            <Select.Option value="Education">Education</Select.Option>
-            <Select.Option value="Health">Health</Select.Option>
+            <Select.Option value="SALARY">Salary</Select.Option>
+            <Select.Option value="WORK_SUPPLİES">Work Supplies</Select.Option>
+            <Select.Option value="EDUCATİON">Education</Select.Option>
+            <Select.Option value="HEALTH">Health</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
@@ -65,7 +65,7 @@ const AddAdvancesModal = ({
           <TextArea rows={4} />
         </Form.Item>
         <Form.Item
-          name="amount"
+          name="advanceAmount"
           label="Amount"
           rules={[{ required: true }]}
 
@@ -84,10 +84,10 @@ const AddAdvancesModal = ({
             <Select.Option value="USD">USD</Select.Option>
             <Select.Option value="EUR">EURO</Select.Option>
             <Select.Option value="GBP">GBP</Select.Option>
-            <Select.Option value="TL">TL</Select.Option>
+            <Select.Option value="TRY">TL</Select.Option>
           </Select>
         </Form.Item >
-        <Form.Item
+        {/* <Form.Item
           name="dateOfRequest"
           label="Date of Request"
           rules={[{ required: true }]}
@@ -107,7 +107,7 @@ const AddAdvancesModal = ({
             }}
             format="YYYY.MM.DD"
           />
-        </Form.Item>
+        </Form.Item> */}
 
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
