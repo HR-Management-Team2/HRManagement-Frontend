@@ -46,13 +46,13 @@ const AddPermissionsModal = ({
         labelCol={{ span: 8 }}
       >
         <Form.Item
-          name="permissionType"
+          name="ePermissionType"
           label="Permission Type"
           rules={[{ required: true }]}
         >
           <Select>
-            <Select.Option value="Holiday">Holiday</Select.Option>
-            <Select.Option value="Annual Leave">Annual Leave</Select.Option>
+            <Select.Option value="HOLIDAY">Holiday</Select.Option>
+            <Select.Option value="ANNUAL">Annual Leave</Select.Option>
             <Select.Option value="Sick Leave">Sick Leave</Select.Option>
             <Select.Option value="Maternity/Paternity Leave">Maternity/Paternity Leave</Select.Option>
             <Select.Option value="Educational Leave">Educational Leave</Select.Option>

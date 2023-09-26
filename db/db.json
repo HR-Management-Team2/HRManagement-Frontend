@@ -181,14 +181,5 @@
       "id": 1
     }
   ],
-  "permissions": [
-    {
-      "permissionType": "Annual Leave",
-      "dateOfRequest": "2023-09-14",
-      "startDate": "2023-09-17",
-      "endDate": "2023-09-21",
-      "days": 5,
-      "id": 2
-    }
-  ]
+  "permissions": []
 }

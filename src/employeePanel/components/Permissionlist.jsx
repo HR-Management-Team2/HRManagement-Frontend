@@ -14,6 +14,8 @@ const Permissionlist = () => {
   const [initialValues, setInitialValues] = useState([]);
   const [search, setSearch] = useState("");
 
+  const token=localStorage.getItem('TOKEN');
+
   const buttons = [
     {
       key: "addPermissions",
@@ -63,7 +65,8 @@ const Permissionlist = () => {
         endDate: values.endDate,
         days: days,
         replyDate: values.replyDate,
-        status: values.status,
+        approvalStatus: values.approvalStatus,
+        token: token
       };
 
       axios
@@ -139,8 +142,8 @@ const Permissionlist = () => {
   const columns = [
     {
       title: "Permission Type",
-      dataIndex: "permissionType",
-      key: "permissionType",
+      dataIndex: "ePermissionType",
+      key: "ePermissionType",
     },
     {
       title: "Date of Request",
@@ -169,8 +172,8 @@ const Permissionlist = () => {
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "approvalStatus",
+      key: "approvalStatus",
     },
     {
       dataIndex: "id",
@@ -202,6 +205,8 @@ const Permissionlist = () => {
       setPermissions(res.data);
     });
   }, []);
+
+  //`http://localhost:8090/api/v1/user/findall-permission-employee?token=${token}`
 
   return (
     <PageLayoutEmployee buttons={buttons} onSearch={onSearch}>
