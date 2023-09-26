@@ -14,6 +14,7 @@ const AdvanceList = () => {
   const [initialValues, setInitialValues] = useState([]);
   const [search, setSearch] = useState("");
 
+  const token=localStorage.getItem('TOKEN');
   const buttons = [
     {
       key: "addAdvances",
@@ -30,42 +31,49 @@ const AdvanceList = () => {
     setIsModalOpen(false);
     console.log(values);
 
-    if (initialValues) {
-      axios
-        .put(`http://localhost:5000/advances/${initialValues.id}`, {
-          ...values
-        })
-        .then((res) => {
-            setAdvances((prevState) => {
-            return prevState.map((u) => {
-              if (res.data.id === u.id) {
-                return {
-                  ...res.data,
-                };
-              } 
-              return u;
-            });
-          });
-        });
-    } else {
-      const newAdvances = {
-        advanceType: values.advanceType,
+    // if (initialValues) {
+    //   axios
+    //     .put(`http://localhost:5000/advances/${initialValues.id}`, {
+    //       ...values
+    //     })
+    //     .then((res) => {
+    //         setAdvances((prevState) => {
+    //         return prevState.map((u) => {
+    //           if (res.data.id === u.id) {
+    //             return {
+    //               ...res.data,
+    //             };
+    //           } 
+    //           return u;
+    //         });
+    //       });
+    //     });
+    // } else {
+      const newAdvances = JSON.stringify({
+        advanceRequestType: values.advanceRequestType,
         description: values.description,
-        amount: values.amount,
+        advanceAmount: values.advanceAmount,
         currency: values.currency,
         replyDate: values.replyDate,
-        status:values.status,
-        dateOfRequest: values.dateOfRequest
-      };
-      axios.post("http://localhost:5000/advances", newAdvances).then((res) => {
-        setAdvances((prevState) => [
-          ...prevState,
-          {
-            ...res.data, 
-          },
-        ]);
+        approvalStatus:values.approvalStatus,
+        token: token
       });
-    }
+      const header = {
+        'Content-Type': 'application/json',
+        // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
+      };
+      axios({
+        method: 'POST',
+        url: 'http://localhost:8090/api/v1/user/advances-create',
+        headers: header,
+        data: newAdvances
+      }).then(result => {
+        console.log(result);
+      }).catch(data => {
+        const result = data.response.data;
+        alert(result.message);
+      })
+    //}
   };
 
   const onCancelAddModel = () => {
@@ -133,8 +141,8 @@ const AdvanceList = () => {
   const columns = [
     {
       title: "Advance Type",
-      dataIndex: "advanceType",
-      key: "advanceType",
+      dataIndex: "advanceRequestType",
+      key: "advanceRequestType",
     },
     {
       title: "Description",
@@ -143,8 +151,8 @@ const AdvanceList = () => {
     },
     {
       title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "advanceAmount",
+      key: "advanceAmount",
     },
     {
       title: "Currency",
@@ -158,36 +166,36 @@ const AdvanceList = () => {
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "approvalStatus",
+      key: "approvalStatus",
     },
-    {
-      dataIndex: "id",
-      key: "id",
-      render: (cell, row) => {
-        return (
-          <>
-            <Button
-              type="primary"
-              shape="circle"
-              icon={<EditOutlined />}
-              onClick={() => onClickEdit(row)}
-            />
-            <Button
-              type="danger"
-              shape="circle"
-              icon={<DeleteOutlined />}
-              onClick={() => onDeleteAdvance(row.id)} 
-            />
-          </>
-        );
-      },
-      width: 100,
-    },
+    // {
+    //   dataIndex: "id",
+    //   key: "id",
+    //   render: (cell, row) => {
+    //     return (
+    //       <>
+    //         <Button
+    //           type="primary"
+    //           shape="circle"
+    //           icon={<EditOutlined />}
+    //           onClick={() => onClickEdit(row)}
+    //         />
+    //         <Button
+    //           type="danger"
+    //           shape="circle"
+    //           icon={<DeleteOutlined />}
+    //           onClick={() => onDeleteAdvance(row.id)} 
+    //         />
+    //       </>
+    //     );
+    //   },
+    //   width: 100,
+    // },
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:5000/advances").then((res) => {
+    axios.get(`http://localhost:8090/api/v1/user/findall-employee-advances?token=${token}`).then((res) => {
       setAdvances(res.data);
     });
   }, []);
