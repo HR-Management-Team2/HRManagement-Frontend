@@ -4,11 +4,12 @@ import PageLayoutEmployee from "../components/PageLayoutEmployee";
 import { Button, Table } from "antd";
 import axios from "axios";
 import { EditOutlined, DeleteOutlined  } from "@ant-design/icons";
-import AddExpensesModal from "../components/AddExpensesModal";
+import AddExpensesModal from "../components/AddExpensesModalManager";
 import dayjs from 'dayjs';
+import PageLayout from "./PageLayoutManager";
 
 
-const Expenselist = () => {
+const ExpenseListManager = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [initialValues, setInitialValues] = useState([]);
@@ -31,24 +32,24 @@ const Expenselist = () => {
     setIsModalOpen(false);
     console.log(values);
 
-    // if (initialValues) {
-    //   axios
-    //     .put(`http://localhost:5000/expenses/${initialValues.id}`, {
-    //       ...values
-    //     })
-    //     .then((res) => {
-    //       setExpenses((prevState) => {
-    //         return prevState.map((u) => {
-    //           if (res.data.id === u.id) {
-    //             return {
-    //               ...res.data,
-    //             };
-    //           } 
-    //           return u;
-    //         });
-    //       });
-    //     });
-    // } else {
+    if (initialValues) {
+      axios
+        .put(`http://localhost:8090/api/v1/user/approve-expense/${initialValues.id}`, {
+          ...values
+        })
+        .then((res) => {
+          setExpenses((prevState) => {
+            return prevState.map((u) => {
+              if (res.data.id === u.id) {
+                return {
+                  ...res.data,
+                };
+              } 
+              return u;
+            });
+          });
+        });
+    } else {
       const newExpenses = JSON.stringify({
         expenseType: values.expenseType,
         description: values.description,
@@ -73,7 +74,7 @@ const Expenselist = () => {
         const result = data.response.data;
         alert(result.message);
       })
-   // }
+    }
   };
 
   const onCancelAddModel = () => {
@@ -140,6 +141,21 @@ const Expenselist = () => {
   
   const columns = [
     {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Employee Name",
+      dataIndex: "nameOfTheRequester",
+      key: "nameOfTheRequester",
+    },
+    {
+      title: "Employee Surname",
+      dataIndex: "surnameOfTheRequester",
+      key: "surnameOfTheRequester",
+    },
+    {
       title: "Expense Type",
       dataIndex: "expenseType",
       key: "expenseType",
@@ -160,48 +176,48 @@ const Expenselist = () => {
       key: "currency",
     },
     {
-      title: "Reply Date",
-      dataIndex: "replyDate",
-      key: "replyDate",
+      title: "Date of Request",
+      dataIndex: "dateOfRequest",
+      key: "dateOfRequest",
     },
     {
       title: "Status",
       dataIndex: "approvalStatus",
       key: "approvalStatus",
     },
-    // {
-    //   dataIndex: "id",
-    //   key: "id",
-    //   render: (cell, row) => {
-    //     return (
-    //       <>
-    //         <Button
-    //           type="primary"
-    //           shape="circle"
-    //           icon={<EditOutlined />}
-    //           onClick={() => onClickEdit(row)}
-    //         />
-    //         <Button
-    //           type="danger"
-    //           shape="circle"
-    //           icon={<DeleteOutlined />}
-    //           onClick={() => onDeleteExpense(row.id)} 
-    //         />
-    //       </>
-    //     );
-    //   },
-    //   width: 100,
-    // },
+    {
+      dataIndex: "id",
+      key: "id",
+      render: (cell, row) => {
+        return (
+          <>
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => onClickEdit(row)}
+            />
+            {/* <Button
+              type="danger"
+              shape="circle"
+              icon={<DeleteOutlined />}
+              onClick={() => onDeleteExpense(row.id)} 
+            /> */}
+          </>
+        );
+      },
+      width: 100,
+    },
   ];
 
   useEffect(() => {
-    axios.get(`http://localhost:8090/api/v1/user/findall-employee-expenses?token=${token}`).then((res) => {
+    axios.get(`http://localhost:8090/api/v1/user/findall-manager-expenses?token=${token}`).then((res) => {
       setExpenses(res.data);
     });
   }, []);
 
   return (
-    <PageLayoutEmployee buttons={buttons} onSearch={onSearch}>
+    <PageLayout buttons={buttons} onSearch={onSearch}>
       <Table
   dataSource={expenses.filter((expense) => {
     return (
@@ -224,8 +240,8 @@ const Expenselist = () => {
           onStatusChange={onStatusChange}
         />
       )}
-    </PageLayoutEmployee>
+    </PageLayout>
   );
 };
 
-export default Expenselist;
+export default ExpenseListManager;

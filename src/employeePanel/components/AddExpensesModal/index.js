@@ -54,9 +54,9 @@ const AddExpensesModal = ({
           rules={[{ required: true }]}
         >
           <Select>
-            <Select.Option value="Food">Food</Select.Option>
-            <Select.Option value="Accomodation">Accomodation</Select.Option>
-            <Select.Option value="Transportation">Transportation</Select.Option>
+            <Select.Option value="FOOD">Food</Select.Option>
+            <Select.Option value="ACCOMODATION">Accomodation</Select.Option>
+            <Select.Option value="TRANSPORTATION">Transportation</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
@@ -67,7 +67,7 @@ const AddExpensesModal = ({
           <TextArea rows={4} />
         </Form.Item>
         <Form.Item
-          name="amount"
+          name="expenseAmount"
           label="Amount"
           rules={[{ required: true }]}
 
@@ -86,10 +86,10 @@ const AddExpensesModal = ({
             <Select.Option value="USD">USD</Select.Option>
             <Select.Option value="EUR">EURO</Select.Option>
             <Select.Option value="GBP">GBP</Select.Option>
-            <Select.Option value="TL">TL</Select.Option>
+            <Select.Option value="TRY">TL</Select.Option>
           </Select>
         </Form.Item >
-        <Form.Item
+        {/* <Form.Item
           name="dateOfRequest"
           label="Date of Request"
           rules={[{ required: true }]}
@@ -109,7 +109,7 @@ const AddExpensesModal = ({
             }}
             format="YYYY.MM.DD"
           />
-        </Form.Item>
+        </Form.Item> */}
 
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
