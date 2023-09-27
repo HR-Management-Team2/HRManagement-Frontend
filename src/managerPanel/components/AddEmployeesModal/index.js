@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
-
+import moment from 'moment';
 
 
 const AddEmployeesModal = ({
@@ -36,7 +36,6 @@ const AddEmployeesModal = ({
   };
 
 
-
   return (
     <Modal
       title="Add Employee"
@@ -70,7 +69,15 @@ const AddEmployeesModal = ({
         <Form.Item
           name="birthday"
           label="Birthdate"
-          rules={[{ required: true }]}
+          rules={[{
+            required: true,
+            validator: (_, value) => {
+              if (moment(value, 'YYYY-MM-DD').isAfter(moment(), 'day')) {
+                return Promise.reject('Gelecek bir tarih seçemezsiniz.');
+              }
+              return Promise.resolve();
+            },
+          }]}
         >
           <Input
             type="date"
@@ -80,9 +87,9 @@ const AddEmployeesModal = ({
               borderRadius: '5px',
               width: '315px',
               height: '35px',
-              border: '1px solid #ccc',  
-              borderColor: '#ccc',       
-              borderWidth: '1px',        
+              border: '1px solid #ccc',
+              borderColor: '#ccc',
+              borderWidth: '1px',
               opacity: 0.7
             }}
             format="YYYY.MM.DD"

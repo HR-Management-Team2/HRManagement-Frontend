@@ -40,14 +40,20 @@ export default function PricingControl() {
                         Üyelik paket seçiminiz alınmıştır!
                     </Typography>
                     <Typography variant="h5" component="h2" gutterBottom>
-                        {'Lütfen e-postanızı kontrol ediniz. Aktivasyon işleminin sonra giriş yapabilirsiniz.'}
-                    </Typography>
-                    <Typography variant="body1">
-                        <Button to="/" size="large" variant="contained" component={RouterLink}>
-                            Go to Home
-                        </Button>
+                        {'Lütfen e-postanızı kontrol ediniz. Aktivasyon işleminden sonra giriş yapabilirsiniz.'}
                     </Typography>
                 </Container>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexGrow: 1,
+                }}>
+                    <Button to="/" size="large" variant="contained" component={RouterLink}>
+                        Go to Home
+                    </Button>
+                </Box>
                 <Box
                     component="footer"
                     sx={{
