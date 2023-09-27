@@ -14,7 +14,7 @@ const Permissionlistmanager = () => {
   const [initialValues, setInitialValues] = useState([]);
   const [search, setSearch] = useState("");
 
-  const token=localStorage.getItem('TOKEN');
+  const token = localStorage.getItem('TOKEN');
 
   const buttons = [
     {
@@ -34,11 +34,11 @@ const Permissionlistmanager = () => {
 
     const days = calculatePermissionDays(values.startDate, values.endDate);
     function calculatePermissionDays(startDate, endDate) {
-        const start = dayjs(startDate);
-        const end = dayjs(endDate);
-        const dayDifference = end.diff(start, "day");
-        return dayDifference + 1;
-      }
+      const start = dayjs(startDate);
+      const end = dayjs(endDate);
+      const dayDifference = end.diff(start, "day");
+      return dayDifference + 1;
+    }
 
     if (initialValues) {
       axios
@@ -58,26 +58,30 @@ const Permissionlistmanager = () => {
           });
         });
     } else {
-      const newPermissions = {
-        ePermissionType: values.ePermissionType,
+      const newPermissions = JSON.stringify({
+        epermissionType: values.epermissionType,
         dateOfRequest: values.dateOfRequest,
         startDate: values.startDate,
         endDate: values.endDate,
         days: days,
-        approvalStatus:values.approvalStatus,
+        approvalStatus: values.approvalStatus,
         token: token
+      });
+      const header = {
+        'Content-Type': 'application/json',
+        // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
       };
-
-      axios
-        .post("http://localhost:5000/permissions", newPermissions)
-        .then((res) => {
-          setPermissions((prevState) => [
-            ...prevState,
-            {
-              ...res.data,
-            },
-          ]);
-        });
+      axios({
+        method: 'POST',
+        url: 'http://localhost:8090/api/v1/user/permission-create',
+        headers: header,
+        data: newPermissions
+      }).then(result => {
+        console.log(result);
+      }).catch(data => {
+        const result = data.response.data;
+        alert(result.message);
+      })
     }
   };
 
@@ -156,8 +160,8 @@ const Permissionlistmanager = () => {
     },
     {
       title: "Permission Type",
-      dataIndex: "ePermissionType",
-      key: "ePermissionType",
+      dataIndex: "epermissionType",
+      key: "epermissionType",
     },
     {
       title: "Date of Request",
@@ -219,9 +223,11 @@ const Permissionlistmanager = () => {
     <PageLayoutManager buttons={buttons} onSearch={onSearch}>
       <Table
         dataSource={permissions.filter((permission) => {
+          if (!permission) {
+            return false;
+          }
           return (
-            (permission && permission.ePermissionType) ||
-            permission.description.includes(search)
+            permission.epermissionType || (permission.description && permission.description.includes(search))
           );
         })}
         columns={columns}
