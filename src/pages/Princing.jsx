@@ -32,41 +32,41 @@ import { useNavigate } from "react-router-dom";
 
 const tiers = [
   {
-    title: '30 Days',
+    title: '30 Gün',
     accountDay: 30,
     price: '150',
     description: [
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
-      'Email support',
+      'Personel Kaydı',
+      'Avans Ödeme',
+      'Harcama-İzin Talepleri',
+      'Teknik Destek',
     ],
     buttonText: 'Get started',
     buttonVariant: 'contained',
   },
   {
-    title: '60 Days',
+    title: '60 Gün',
     accountDay: 60,
-    subheader: 'Most popular',
     price: '290',
     description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
+      'Personel Kaydı',
+      'Avans Ödeme',
+      'Harcama-İzin Talepleri',
+      'Teknik Destek',
     ],
     buttonText: 'Get started',
     buttonVariant: 'contained',
   },
   {
-    title: '90 Days',
+    title: '90 Gün',
     accountDay: 90,
+    subheader: 'En çok satan',
     price: '400',
     description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
+      'Personel Kaydı',
+      'Avans Ödeme',
+      'Harcama-İzin Talepleri',
+      'Teknik Destek',
     ],
     buttonText: 'Get started',
     buttonVariant: 'contained',
@@ -126,7 +126,7 @@ export default function Pricing() {
         .catch(error => {
           console.error('Hata:', error);
         });
-        navigate('/registercontrol')
+        navigate('/pricingcontrol')
       };
 
   return (
@@ -178,15 +178,15 @@ export default function Pricing() {
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
-          variant="h2"
+          variant="h3"
           align="center"
           color="text.primary"
           gutterBottom
         >
-          Pricing
+          Planlar ve Fiyatlandırma
         </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" component="p">
-          Üyelik işlemleriniz için 30, 60 ve 90 günlük paketler tercih ederbilirsiniz.
+        <Typography variant="h6" align="center" color="text.secondary" component="p">
+        Şirketiniz için en uygun çözümü seçin ve hemen başlayın! Aşağıda sunulan 30, 60 veya 90 günlük paketlerden birini tercih ederek işinizi yönetmeye başlayabilirsiniz.
         </Typography>
       </Container>
       {/* End hero unit */}

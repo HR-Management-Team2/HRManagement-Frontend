@@ -42,12 +42,18 @@ export default function RegisterControl() {
                     <Typography variant="h5" component="h2" gutterBottom>
                         {'Giriş işlemi ve üyelik paketi seçimiyle devam edebilirsiniz.'}
                     </Typography>
-                    <Typography variant="body1">
-                        <Button to="/" size="large" variant="contained" component={RouterLink}>
-                            Go to Home
-                        </Button>
-                    </Typography>
                 </Container>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexGrow: 1,
+                }}>
+                    <Button to="/" size="large" variant="contained" component={RouterLink}>
+                        Go to Home
+                    </Button>
+                </Box>
                 <Box
                     component="footer"
                     sx={{
