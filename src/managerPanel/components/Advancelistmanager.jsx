@@ -33,7 +33,7 @@ const AdvanceListManager = () => {
 
     if (initialValues) {
       axios
-        .put(`http://localhost:8090/api/v1/user/approve-advance${initialValues.id}`, {
+        .put(`http://localhost:8090/api/v1/user/approve-advance/${initialValues.id}`, {
           ...values
         })
         .then((res) => {
@@ -48,32 +48,32 @@ const AdvanceListManager = () => {
             });
           });
         });
-    } else {
-      const newAdvances = JSON.stringify({
-        advanceRequestType: values.advanceRequestType,
-        description: values.description,
-        advanceAmount: values.advanceAmount,
-        currency: values.currency,
-        dateOfRequest: values.dateOfRequest,
-        approvalStatus:values.approvalStatus,
-        token: token
-      });
-      const header = {
-        'Content-Type': 'application/json',
-        // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
-      };
-      axios({
-        method: 'POST',
-        url: 'http://localhost:8090/api/v1/user/advances-create',
-        headers: header,
-        data: newAdvances
-      }).then(result => {
-        console.log(result);
-      }).catch(data => {
-        const result = data.response.data;
-        alert(result.message);
-      })
-    }
+     } //else {
+    //   const newAdvances = JSON.stringify({
+    //     advanceRequestType: values.advanceRequestType,
+    //     description: values.description,
+    //     advanceAmount: values.advanceAmount,
+    //     currency: values.currency,
+    //     dateOfRequest: values.dateOfRequest,
+    //     approvalStatus:values.approvalStatus,
+    //     token: token
+    //   });
+    //   const header = {
+    //     'Content-Type': 'application/json',
+    //     // 'Accept-Encoding': 'gzip;q=1.0, compress;q=0.5',
+    //   };
+    //   axios({
+    //     method: 'POST',
+    //     url: 'http://localhost:8090/api/v1/user/advances-create',
+    //     headers: header,
+    //     data: newAdvances
+    //   }).then(result => {
+    //     console.log(result);
+    //   }).catch(data => {
+    //     const result = data.response.data;
+    //     alert(result.message);
+    //   })
+    // }
   };
 
   const onCancelAddModel = () => {

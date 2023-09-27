@@ -42,7 +42,7 @@ const Permissionlistmanager = () => {
 
     if (initialValues) {
       axios
-        .put(`http://localhost:8090/api/v1/user/approve-permission${initialValues.id}`, {
+        .put(`http://localhost:8090/api/v1/user/approve-permission/${initialValues.id}`, {
           ...values,
         })
         .then((res) => {
