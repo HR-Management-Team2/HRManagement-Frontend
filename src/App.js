@@ -22,7 +22,9 @@ import MyExpense from "./employeePanel/pages/MyExpense";
 import MyAdvance from "./employeePanel/pages/MyAdvance";
 import MyPermission from "./employeePanel/pages/MyPermission";
 import NotFound from "./pages/NotFound";
-import Princing from "./pages/Princing"
+import Princing from "./pages/Princing";
+import RegisterControl from "./pages/RegisterControl";
+import PricingControl from "./pages/PricingControl";
 
 export default function App(){
 
@@ -54,7 +56,9 @@ export default function App(){
         <Route path="/myadvance" exact element={<MyAdvance />} ></Route>
         <Route path="/mypermission" exact element={<MyPermission />} ></Route>
         <Route path="*" exact element={<NotFound />} ></Route>
-        <Route path="/princing" exact element={<Princing />} ></Route>
+        <Route path="/pricing" exact element={<Princing />} ></Route>
+        <Route path="/registercontrol" exact element={<RegisterControl />} ></Route>
+        <Route path="/pricingcontrol" exact element={<PricingControl />} ></Route>
 
       </Routes>
     </BrowserRouter>
