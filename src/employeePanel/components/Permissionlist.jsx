@@ -213,10 +213,12 @@ const Permissionlist = () => {
     <PageLayoutEmployee buttons={buttons} onSearch={onSearch}>
       <Table
         dataSource={permissions.filter((permission) => {
-          if (!permission || !permission.description) {
+          if (!permission) {
             return false; 
           }
-          return permission.description.includes(search);
+          return (
+            permission.epermissionType || (permission.description && permission.description.includes(search))
+          );
         })}
         columns={columns}
         rowKey="id"
