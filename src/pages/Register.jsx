@@ -21,6 +21,7 @@ import { Input } from "@mui/material";
 import React from 'react';
 
 
+
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -104,6 +105,7 @@ export default function Register() {
     .catch(data=>{
       console.log(data);
     })
+    navigate('/registercontrol')
 
 
   };

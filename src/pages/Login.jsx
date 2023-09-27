@@ -18,6 +18,7 @@ import Slide from "@mui/material/Slide";
 import { useNavigate } from "react-router-dom";
 import React from 'react';
 import axios from 'axios';
+import { message } from "antd";
 
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -76,19 +77,28 @@ export default function Login() {
       data: data
     }).then(result => {
       console.log(result);
-      if (result.data.role === "ADMIN") {
-        localStorage.setItem('TOKEN', result.data.token);
-        navigate('/home');
-      } else if (result.data.role === "MANAGER") {
-        localStorage.setItem('TOKEN', result.data.token);
-        navigate('/managerhome');
-      } else if (result.data.role === "VISITOR") {
-        localStorage.setItem('TOKEN', result.data.token);
-        navigate('/visitorhome');
-      }else if (result.data.role === "EMPLOYEE") {
-        localStorage.setItem('TOKEN', result.data.token);
-        navigate('/employeehome');
+      if (result.data.status === "PENDING") {
+        if (result.data.role === "MANAGER") {
+          localStorage.setItem('TOKEN', result.data.token)
+          navigate('/pricing')
+        }
+        alert(result.message);
+      } else if(result.data.status === "ACTIVE") {
+        if (result.data.role === "ADMIN") {
+          localStorage.setItem('TOKEN', result.data.token);
+          navigate('/home');
+        } else if (result.data.role === "MANAGER") {
+          localStorage.setItem('TOKEN', result.data.token);
+          navigate('/managerhome');
+        } else if (result.data.role === "VISITOR") {
+          localStorage.setItem('TOKEN', result.data.token);
+          navigate('/visitorhome');
+        }else if (result.data.role === "EMPLOYEE") {
+          localStorage.setItem('TOKEN', result.data.token);
+          navigate('/employeehome');
+        }
       }
+      
     }).catch(data => {
       const result = data.response.data;
       // alert(result.message);

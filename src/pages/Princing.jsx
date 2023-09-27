@@ -15,23 +15,25 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
+import { useNavigate } from "react-router-dom";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const tiers = [
   {
     title: '30 Days',
+    accountDay: 30,
     price: '150',
     description: [
       '10 users included',
@@ -39,11 +41,12 @@ const tiers = [
       'Help center access',
       'Email support',
     ],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined',
+    buttonText: 'Get started',
+    buttonVariant: 'contained',
   },
   {
     title: '60 Days',
+    accountDay: 60,
     subheader: 'Most popular',
     price: '290',
     description: [
@@ -57,6 +60,7 @@ const tiers = [
   },
   {
     title: '90 Days',
+    accountDay: 90,
     price: '400',
     description: [
       '50 users included',
@@ -64,8 +68,8 @@ const tiers = [
       'Help center access',
       'Phone & email support',
     ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined',
+    buttonText: 'Get started',
+    buttonVariant: 'contained',
   },
 ];
 
@@ -96,8 +100,35 @@ const tiers = [
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
+const token=localStorage.getItem('TOKEN');
+
+
 
 export default function Pricing() {
+    const navigate = useNavigate();
+
+    const handleButtonClick = (accountDay, token) => {
+        fetch('http://localhost:8080/api/v1/auth/pricing-manager', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            //'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ 
+            "accountDay":accountDay,
+            "token":token
+        }) 
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Gönderildi:', data);
+        })
+        .catch(error => {
+          console.error('Hata:', error);
+        });
+        navigate('/registercontrol')
+      };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
@@ -155,9 +186,7 @@ export default function Pricing() {
           Pricing
         </Typography>
         <Typography variant="h5" align="center" color="text.secondary" component="p">
-          Quickly build an effective pricing table for your potential customers with
-          this layout. It&apos;s built with default MUI components with little
-          customization.
+          Üyelik işlemleriniz için 30, 60 ve 90 günlük paketler tercih ederbilirsiniz.
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -198,10 +227,10 @@ export default function Pricing() {
                     }}
                   >
                     <Typography component="h2" variant="h3" color="text.primary">
-                      ${tier.price}
+                      ₺{tier.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
-                      /mo
+                      
                     </Typography>
                   </Box>
                   <ul>
@@ -218,7 +247,9 @@ export default function Pricing() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant}>
+                  <Button fullWidth variant={tier.buttonVariant}
+                    onClick={() => handleButtonClick(tier.accountDay,token)}
+                  >
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -255,7 +286,7 @@ export default function Pricing() {
             </Grid>
           ))}
         </Grid> */}
-        <Copyright sx={{ mt: 5 }} />
+        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
       {/* End footer */}
     </ThemeProvider>
