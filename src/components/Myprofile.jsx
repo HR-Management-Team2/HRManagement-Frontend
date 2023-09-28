@@ -168,7 +168,7 @@ export default function Myprofile() {
             style={{ width: 150, height: 150, marginBottom: "20px" }}
           />
 
-          <Button
+          {/* <Button
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -180,7 +180,7 @@ export default function Myprofile() {
               type="file"
               onChange={handleFileChange}
             />
-          </Button>
+          </Button> */}
 
           {isEditing ? (
             <Box sx={{ marginTop: "50px" }}>
@@ -221,7 +221,7 @@ export default function Myprofile() {
             </Paper>
           )}
 
-          <Box sx={{ display: "flex", gap: 2 }}>
+          {/* <Box sx={{ display: "flex", gap: 2 }}>
             <Button
               variant="contained"
               color="primary"
@@ -238,7 +238,7 @@ export default function Myprofile() {
                 Save
               </Button>
             )}
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </>

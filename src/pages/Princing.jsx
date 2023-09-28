@@ -115,8 +115,8 @@ export default function Pricing() {
             //'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({ 
-            "accountDay":accountDay,
-            "token":token
+            "accountDay": accountDay,
+            "token": token,
         }) 
         })
         .then(response => response.json())

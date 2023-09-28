@@ -50,7 +50,7 @@ const AddPermissionsModal = ({
           label="ID"
           rules={[{ required: true }]}
         >
-          <Input/>
+          <Input disabled/>
         </Form.Item>
         <Form.Item
           name="approvalStatus"

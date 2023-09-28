@@ -12,7 +12,7 @@ const Employeelist = () => {
   const [initialValues, setInitialValues] = useState([]);
   const [search, setSearch] = useState("");
 
-  const token=localStorage.getItem('TOKEN');
+  const token = localStorage.getItem('TOKEN');
 
   const buttons = [
     {
@@ -96,32 +96,35 @@ const Employeelist = () => {
     setIsModalOpen(false);
   };
 
-  
+
   const onClickEdit = (row) => {
     setIsModalOpen(true);
-    row.establish=dayjs(row.establish)
+    row.establish = dayjs(row.establish)
     setInitialValues(row);
   };
   const onSearch = (value) => {
     setSearch(value);
   };
 
-  const onDeleteEmployee = (employeeId) => {
-    if (!employeeId) {
+  const onDeleteEmployee = (email) => {
+    if (!email) {
       console.error("Invalid Employee ID");
       return;
     }
 
+    const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
+    if (confirmDelete) {
     axios
-      .delete(`http://localhost:5000/employees/${employeeId}`)
+      .delete(`http://localhost:8090/api/v1/user/delete-employee/${email}`)
       .then((res) => {
         setEmployees((prevState) =>
-          prevState.filter((employee) => employee.id !== employeeId)
+          prevState.filter((employee) => employee.email !== email)
         );
       })
       .catch((error) => {
         console.error("Delete error:", error);
       });
+    }
   };
   const columns = [
     {
@@ -170,7 +173,7 @@ const Employeelist = () => {
               type="danger"
               shape="circle"
               icon={<DeleteOutlined />}
-              onClick={() => onDeleteEmployee(row.id)}
+              onClick={() => onDeleteEmployee(row.email)}
             />
           </>
         );
@@ -189,7 +192,11 @@ const Employeelist = () => {
     <PageLayoutEmployee buttons={buttons} onSearch={onSearch}>
       <Table
         dataSource={employees.filter((employee) => {
-          return employee.name.includes(search);
+          return (
+            employee &&
+            employee.name &&
+            employee.name.toLowerCase().includes(search.toLowerCase())
+          );
         })}
         columns={columns}
         rowKey="id"
@@ -200,7 +207,7 @@ const Employeelist = () => {
           onOk={onOkAddModel}
           onCancel={onCancelAddModel}
           initialValues={initialValues}
-          
+
         />
       )}
     </PageLayoutEmployee>

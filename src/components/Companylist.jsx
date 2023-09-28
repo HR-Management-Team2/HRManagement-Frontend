@@ -130,6 +130,8 @@ const Companylist = () => {
       return;
     }
 
+    const confirmDelete = window.confirm("Are you sure you want to delete this company?");
+    if (confirmDelete) {
     axios
       .delete(`http://localhost:9080/api/v1/company/delete/${taxNumber}`)
       .then((res) => {
@@ -145,6 +147,7 @@ const Companylist = () => {
       .catch((error) => {
         console.error("Delete error:", error);
       });
+    }
   };
 
 
@@ -212,7 +215,7 @@ const Companylist = () => {
       <Table
         dataSource={companies.filter((company) => {
           return (
-            company.name.includes(search)
+            company.name.toLowerCase().includes(search.toLowerCase())
           );
         })}
         columns={columns}
