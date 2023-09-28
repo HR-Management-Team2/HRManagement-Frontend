@@ -51,21 +51,21 @@ const AddManagersModal = ({
           label="authId"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled/>
         </Form.Item>
         <Form.Item
           name="name"
           label="Name"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled/>
         </Form.Item>
         <Form.Item
           name="surname"
           label="Surname"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled/>
 
         </Form.Item>
         <Form.Item
@@ -73,21 +73,21 @@ const AddManagersModal = ({
           label="Email"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled/>
         </Form.Item>
         <Form.Item
           name="companyName"
           label="Company Name"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled/>
         </Form.Item >
         <Form.Item
           name="taxNo"
           label="Tax Number"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled/>
         </Form.Item >
         <Form.Item
           name="status"

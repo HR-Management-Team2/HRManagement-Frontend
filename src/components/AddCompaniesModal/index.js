@@ -1,5 +1,6 @@
 import { Button, Form, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
+import moment from 'moment';
 
 
 const AddCompaniesModal = ({
@@ -49,14 +50,14 @@ const AddCompaniesModal = ({
           label="Company Name"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled={!!initialValues} />
         </Form.Item>
         <Form.Item
           name="taxNumber"
           label="Tax Number"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input maxLength="11" minLength="11" disabled={!!initialValues} />
 
         </Form.Item>
         <Form.Item
@@ -76,9 +77,17 @@ const AddCompaniesModal = ({
         <Form.Item
           name="yearOfEstablishment"
           label="Establish"
-          rules={[{ required: true }]}
+          rules={[{
+            required: true,
+            validator: (_, value) => {
+              if (moment(value, 'YYYY-MM-DD').isAfter(moment(), 'day')) {
+                return Promise.reject('Gelecek bir tarih seçemezsiniz.');
+              }
+              return Promise.resolve();
+            },
+          }]}
         >
-          <Input 
+          <Input
             type="date"
             value={inputValue}
             onChange={handleChange}
@@ -92,6 +101,7 @@ const AddCompaniesModal = ({
               opacity: 0.7
             }}
             format="YYYY.MM.DD"
+            max="2023-12-31"
           />
         </Form.Item>
 

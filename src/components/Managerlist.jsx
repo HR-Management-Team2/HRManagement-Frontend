@@ -115,16 +115,20 @@ const Managerlist = () => {
       return;
     }
   
-    axios
-      .delete(`http://localhost:8090/api/v1/user/delete-manager/${authId}`)
-      .then((res) => {
-        setManagers((prevState) =>
-          prevState.filter((manager) => manager.authId !== authId)
-        );
-      })
-      .catch((error) => {
-        console.error("Delete error:", error);
-      });
+    const confirmDelete = window.confirm("Are you sure you want to delete this manager?");
+    
+    if (confirmDelete) {
+      axios
+        .delete(`http://localhost:8090/api/v1/user/delete-manager/${authId}`)
+        .then((res) => {
+          setManagers((prevState) =>
+            prevState.filter((manager) => manager.authId !== authId)
+          );
+        })
+        .catch((error) => {
+          console.error("Delete error:", error);
+        });
+    }
   };
   
   
@@ -159,6 +163,11 @@ const Managerlist = () => {
       title: "Tax Number",
       dataIndex: "taxNo",
       key: "taxNo",
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      key: "endDate",
     },
     {
       title: "Status",
@@ -203,7 +212,7 @@ const Managerlist = () => {
     return (
       manager && 
       manager.name && 
-      manager.name.includes(search)
+      manager.name.toLowerCase().includes(search.toLowerCase())
     );
   })}
   columns={columns}

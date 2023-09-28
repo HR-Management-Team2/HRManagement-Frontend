@@ -1,6 +1,7 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, InputNumber, Modal } from "antd";
 import { useEffect, useState } from "react";
 import moment from 'moment';
+import MaskedInput from 'antd-mask-input';
 
 
 const AddEmployeesModal = ({
@@ -71,12 +72,6 @@ const AddEmployeesModal = ({
           label="Birthdate"
           rules={[{
             required: true,
-            validator: (_, value) => {
-              if (moment(value, 'YYYY-MM-DD').isAfter(moment(), 'day')) {
-                return Promise.reject('Gelecek bir tarih seçemezsiniz.');
-              }
-              return Promise.resolve();
-            },
           }]}
         >
           <Input
@@ -93,6 +88,7 @@ const AddEmployeesModal = ({
               opacity: 0.7
             }}
             format="YYYY.MM.DD"
+            max="2010-01-01"
           />
         </Form.Item>
         <Form.Item
@@ -107,14 +103,14 @@ const AddEmployeesModal = ({
           label="Email"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input disabled={!!initialValues}/>
         </Form.Item>
         <Form.Item
           name="phone"
           label="Phone"
           rules={[{ required: true }]}
         >
-          <Input />
+          <Input maxlength="12" minLength="12" placeholder="90-000-0000"/>
         </Form.Item>
         <Form.Item
           name="address"
