@@ -1,6 +1,7 @@
 # Human Resources Management Project
 
-aaaaaaa
+## About
+This project is a Human Resources Management system designed to streamline HR processes for companies. With this web-based application, organizations can efficiently record and manage employees and managers, enabling various HR-related tasks and operations.
 
 ## Register-Login
 
