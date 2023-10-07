@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Human Resources Management Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+aaaaaaa
 
-## Available Scripts
+## Register-Login
 
-In the project directory, you can run:
+Company managers who want to use the HRM (Human Resource Management) system should first register. After registration, they can enter the login page and choose the membership package they desire. Once their memberships are approved, they can start using the system.
 
-### `npm start`
+ <img src="/src/assets/register-hr.png" alt="Icon" width="600">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Existing registered users can log in from the login page to use the system.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="/src/assets/login-hr.png" alt="Icon" width="600">
 
-### `npm test`
+## HRM Project Admin-Panel
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When you log in with the admin role, you can access this panel.
 
-### `npm run build`
+<img src="/src/assets/admin-panel.png" alt="Icon" width="600">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Admin Profile
+- Adding and listing companies
+- Listing managers and controlling account packages
+- The approval of manager accounts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## HRM Project Manager-Panel
 
-### `npm run eject`
+When you log in with the manager role, you can access this panel.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="/src/assets/manager-panel.png" alt="Icon" width="600">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Manager Profile
+- Adding and listing employees
+- Update employee
+- Evaluating permission, advance and expense requests from employees
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## HRM Project Employee-Panel
 
-## Learn More
+When you log in with the employee role, you can access this panel.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img src="/src/assets/employee-panel.png" alt="Icon" width="600">
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Features
 
-### Code Splitting
+- Employee Profile
+- Creating a permission request and listing the permissions
+- Creating a expense request and listing the expenses
+- Creating a advance request and listing the advances
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Installation
 
-### Analyzing the Bundle Size
+Clone the project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+  git clone https://github.com/HR-Management-Team2/HRManagement-Frontend.git
+```
 
-### Making a Progressive Web App
+Go to the project directory
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+  cd HRManagement-Frontend
 
-### Advanced Configuration
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Install dependencies
 
-### Deployment
+```bash
+  npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Start the server
 
-### `npm run build` fails to minify
+```bash
+  npm run start
+```
+## Technologies 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The tools and technologies we use in our project are:
+
+- [React](https://react.dev/)
+- [MUI](https://mui.com/)
+- [Antd](https://ant.design/)
